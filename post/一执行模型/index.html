@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>一、执行模型 :: Terminal — A simple, retro theme for Hugo</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="1. 将源代码编译成托管模块 可用CLR的任何一种语言创建源代码文件，然后用一个对应的编译器去检查语法和分析源代码，无论选用哪种编 译器，结果都是一个托管模块 托管模块是一个标准的32位（PE32）或一个标准的64位（PE32&#43;）可移植执行体。它们都需要CLR才能执行
+  托管模块组成部分：
+ PE32或PE32&#43;头：类似“公共对象文件格式” CLR头：包含是这个模块成为一个托管模块的信息 元数据：主要有两种类型的表，描述类型的表描述源代码中定义的类型和成员，另一种类型的表描述源代码引用的类型和成员 IL（中间语言）代码：运行时，CLR将IL编译成CPU指令    元数据的用途：
+ 编译时，元数据消除了本地C/C&#43;&#43;头和库文件的需求，因为在负责实现类型/成员的IL代码文件中，已经包含了引用的类型/成员和有关的全部信息，编译器可以直接从托管模块读取元数据 Microsoft Visual Studio 使用元数据“智能感知”，指出一个类型提供了哪些方法、属性、事件、字段 CLR代码严格使用元数据确保代码只执行“类型安全”的操作 元数据允许将一个对象的字段序列化到一个内存块中，将其发送给另一台机器，然后反序列化，在远程机器上重建对象的状态 元数据允许垃圾回收器跟踪对象的生存期，垃圾回收器可以判断任何对象的类型，并从元数据知道那个对象中的哪些字段引用了其他对象。    C#、F#、VB等IL汇编器总是生成包含托管代码（IL）和托管数据（辣鸡手机的数据类型）的模块，为了执行包含托管代码的模块，用户必须在机子上装CLR，Microsoft的C&#43;&#43;编译器是最特殊的，默认生成包含非托管（本地）代码的EXE/DLL模块，运行时操纵非托管数据（本地内存），当然也可以生成托管的模块。
+2. 将托管模块合并成程序集 CLR实际上不和模块一起工作，它是和程序集一起工作的，程序集是一个抽象概念，是一个或多个模块/资源文件的逻辑性分组，其次，程序集是重用、安全性以及版本控制的最小单元，既可以生成单文件程序集，也可以生成多文件程序集，在CLR的世界里，程序集相当于一个“组件”
+3. 加载公共语言运行时 每个程序集既可以是一个可执行程序，也可以是一个DLL，最终是由CLR管理这些程序集中的代码的执行，这意味着必须在目标机器上安装好.NET Framework。
+运行一个可执行文件时，Windows会检查这个EXE文件头，需要的是32位地址空间（PE32）还是64位地址空间（PE32&#43;）。Windows还会检查头中嵌入的CPU架构信息，确保当前计算机符合要求。 Windows的64位版本提供了一个名为WoW64（Windows on Windows64）的技术，允许运行32位Windows应用程序
+4. 执行程序集的代码 托管程序集同时包含元数据和IL，IL是与CPU无关的机器语言，IL比大多数机器语言都要高级，IL能访问和操作对象类型，并提供了指令来创建和初始化对象、调用对象上的虚方法以及直接操作数组元素，甚至提供了抛出和捕捉异常的指令来实现错误处理，可将IL视作一种面向对象的机器语言
+和其他机器语言一样，IL也能使用汇编语言来写。 高级语言一般只公开了CLR的所有功能的一个子集，如果你选择了一种编程语言隐藏了你迫切需要的CLR功能，可以换用IL汇编语言或者提供所需功能的另一种编程语言来写那部分代码
+例子：
+static void Main() { // 1、在负责实现类型（Console）的程序集的元数据中  查找被调用的方法（WriteLine） // 2、从元数据中获取该方法的IL  // 3、分配内存块  // 4、将IL编译成CPU指令，然后存储到3分配的内存中  // 5、在Type表中修改与方法对应的记录项，指向3分配  的内存块 // 6、跳转到内存块中的本地代码  Console." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://stillsb.github.io/post/%E4%B8%80%E6%89%A7%E8%A1%8C%E6%A8%A1%E5%9E%8B/" />
+
+
+
+
+<link rel="stylesheet" href="https://stillsb.github.io/assets/style.css">
+
+  <link rel="stylesheet" href="https://stillsb.github.io/assets/pink.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://stillsb.github.io/img/apple-touch-icon-144-precomposed.png">
+
+  <link rel="shortcut icon" href="https://stillsb.github.io/img/favicon/pink.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  <meta name="twitter:site" content="" />
+
+<meta name="twitter:creator" content="" />
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="一、执行模型 :: Terminal">
+<meta property="og:description" content="1. 将源代码编译成托管模块 可用CLR的任何一种语言创建源代码文件，然后用一个对应的编译器去检查语法和分析源代码，无论选用哪种编 译器，结果都是一个托管模块 托管模块是一个标准的32位（PE32）或一个标准的64位（PE32&#43;）可移植执行体。它们都需要CLR才能执行
+  托管模块组成部分：
+ PE32或PE32&#43;头：类似“公共对象文件格式” CLR头：包含是这个模块成为一个托管模块的信息 元数据：主要有两种类型的表，描述类型的表描述源代码中定义的类型和成员，另一种类型的表描述源代码引用的类型和成员 IL（中间语言）代码：运行时，CLR将IL编译成CPU指令    元数据的用途：
+ 编译时，元数据消除了本地C/C&#43;&#43;头和库文件的需求，因为在负责实现类型/成员的IL代码文件中，已经包含了引用的类型/成员和有关的全部信息，编译器可以直接从托管模块读取元数据 Microsoft Visual Studio 使用元数据“智能感知”，指出一个类型提供了哪些方法、属性、事件、字段 CLR代码严格使用元数据确保代码只执行“类型安全”的操作 元数据允许将一个对象的字段序列化到一个内存块中，将其发送给另一台机器，然后反序列化，在远程机器上重建对象的状态 元数据允许垃圾回收器跟踪对象的生存期，垃圾回收器可以判断任何对象的类型，并从元数据知道那个对象中的哪些字段引用了其他对象。    C#、F#、VB等IL汇编器总是生成包含托管代码（IL）和托管数据（辣鸡手机的数据类型）的模块，为了执行包含托管代码的模块，用户必须在机子上装CLR，Microsoft的C&#43;&#43;编译器是最特殊的，默认生成包含非托管（本地）代码的EXE/DLL模块，运行时操纵非托管数据（本地内存），当然也可以生成托管的模块。
+2. 将托管模块合并成程序集 CLR实际上不和模块一起工作，它是和程序集一起工作的，程序集是一个抽象概念，是一个或多个模块/资源文件的逻辑性分组，其次，程序集是重用、安全性以及版本控制的最小单元，既可以生成单文件程序集，也可以生成多文件程序集，在CLR的世界里，程序集相当于一个“组件”
+3. 加载公共语言运行时 每个程序集既可以是一个可执行程序，也可以是一个DLL，最终是由CLR管理这些程序集中的代码的执行，这意味着必须在目标机器上安装好.NET Framework。
+运行一个可执行文件时，Windows会检查这个EXE文件头，需要的是32位地址空间（PE32）还是64位地址空间（PE32&#43;）。Windows还会检查头中嵌入的CPU架构信息，确保当前计算机符合要求。 Windows的64位版本提供了一个名为WoW64（Windows on Windows64）的技术，允许运行32位Windows应用程序
+4. 执行程序集的代码 托管程序集同时包含元数据和IL，IL是与CPU无关的机器语言，IL比大多数机器语言都要高级，IL能访问和操作对象类型，并提供了指令来创建和初始化对象、调用对象上的虚方法以及直接操作数组元素，甚至提供了抛出和捕捉异常的指令来实现错误处理，可将IL视作一种面向对象的机器语言
+和其他机器语言一样，IL也能使用汇编语言来写。 高级语言一般只公开了CLR的所有功能的一个子集，如果你选择了一种编程语言隐藏了你迫切需要的CLR功能，可以换用IL汇编语言或者提供所需功能的另一种编程语言来写那部分代码
+例子：
+static void Main() { // 1、在负责实现类型（Console）的程序集的元数据中  查找被调用的方法（WriteLine） // 2、从元数据中获取该方法的IL  // 3、分配内存块  // 4、将IL编译成CPU指令，然后存储到3分配的内存中  // 5、在Type表中修改与方法对应的记录项，指向3分配  的内存块 // 6、跳转到内存块中的本地代码  Console." />
+<meta property="og:url" content="https://stillsb.github.io/post/%E4%B8%80%E6%89%A7%E8%A1%8C%E6%A8%A1%E5%9E%8B/" />
+<meta property="og:site_name" content="一、执行模型" />
+
+  
+    <meta property="og:image" content="https://stillsb.github.io/img/favicon/pink.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2017-11-01 12:30:22 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Terminal
+  </div>
+</a>
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/showcase">Showcase</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+      
+        <li><a href="/showcase">Showcase</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://stillsb.github.io/post/%E4%B8%80%E6%89%A7%E8%A1%8C%E6%A8%A1%E5%9E%8B/">一、执行模型</a></h1>
+  <div class="post-meta">
+      
+    <span class="post-date">
+      2017-11-01
+    </span>
+    
+    
+  </div>
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <h3 id="1-将源代码编译成托管模块">1. 将源代码编译成托管模块<a href="#1-将源代码编译成托管模块" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>可用CLR的任何一种语言创建源代码文件，然后用一个对应的编译器去检查语法和分析源代码，无论选用哪种编
+译器，结果都是一个<strong>托管模块</strong>
+托管模块是一个标准的32位（<strong>PE32</strong>）或一个标准的64位（<strong>PE32+</strong>）可移植执行体。它们都需要CLR才能执行</p>
+<ul>
+<li>
+<p>托管模块组成部分：</p>
+<ol>
+<li>PE32或PE32+头：类似“公共对象文件格式”</li>
+<li>CLR头：包含是这个模块成为一个托管模块的信息</li>
+<li><strong>元数据</strong>：主要有两种类型的表，描述类型的表描述源代码中定义的类型和成员，另一种类型的表描述源代码引用的类型和成员</li>
+<li>IL（中间语言）代码：运行时，CLR将IL编译成CPU指令</li>
+</ol>
+</li>
+<li>
+<p>元数据的用途：</p>
+<ol>
+<li>编译时，元数据消除了本地C/C++头和库文件的需求，因为在负责实现类型/成员的IL代码文件中，已经包含了引用的类型/成员和有关的全部信息，编译器可以直接从托管模块读取元数据</li>
+<li>Microsoft Visual Studio 使用元数据“智能感知”，指出一个类型提供了哪些方法、属性、事件、字段</li>
+<li>CLR代码严格使用元数据确保代码只执行“类型安全”的操作</li>
+<li>元数据允许将一个对象的字段序列化到一个内存块中，将其发送给另一台机器，然后反序列化，在远程机器上重建对象的状态</li>
+<li>元数据允许垃圾回收器跟踪对象的生存期，垃圾回收器可以判断任何对象的类型，并从元数据知道那个对象中的哪些字段引用了其他对象。</li>
+</ol>
+</li>
+</ul>
+<p>C#、F#、VB等IL汇编器总是生成包含托管代码（IL）和托管数据（辣鸡手机的数据类型）的模块，为了执行包含托管代码的模块，用户必须在机子上装CLR，Microsoft的C++编译器是最特殊的，默认生成包含非托管（本地）代码的EXE/DLL模块，运行时操纵非托管数据（本地内存），当然也可以生成托管的模块。</p>
+<h3 id="2-将托管模块合并成程序集">2. 将托管模块合并成程序集<a href="#2-将托管模块合并成程序集" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>CLR实际上不和模块一起工作，它是和程序集一起工作的，程序集是一个抽象概念，是一个或多个模块/资源文件的逻辑性分组，其次，程序集是重用、安全性以及版本控制的最小单元，既可以生成单文件程序集，也可以生成多文件程序集，在CLR的世界里，程序集相当于一个“组件”</p>
+<h3 id="3-加载公共语言运行时">3. 加载公共语言运行时<a href="#3-加载公共语言运行时" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>每个程序集既可以是一个可执行程序，也可以是一个DLL，最终是由CLR管理这些程序集中的代码的执行，这意味着必须在目标机器上安装好.NET Framework。</p>
+<p>运行一个可执行文件时，Windows会检查这个EXE文件头，需要的是32位地址空间（PE32）还是64位地址空间（PE32+）。Windows还会检查头中嵌入的CPU架构信息，确保当前计算机符合要求。
+Windows的64位版本提供了一个名为WoW64（Windows on Windows64）的技术，允许运行32位Windows应用程序</p>
+<h3 id="4-执行程序集的代码">4. 执行程序集的代码<a href="#4-执行程序集的代码" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>托管程序集同时包含元数据和IL，IL是与CPU无关的机器语言，IL比大多数机器语言都要高级，IL能访问和操作对象类型，并提供了指令来创建和初始化对象、调用对象上的虚方法以及直接操作数组元素，甚至提供了抛出和捕捉异常的指令来实现错误处理，可将IL视作一种面向对象的机器语言</p>
+<p>和其他机器语言一样，IL也能使用汇编语言来写。
+高级语言一般只公开了CLR的所有功能的一个子集，如果你选择了一种编程语言隐藏了你迫切需要的CLR功能，可以换用IL汇编语言或者提供所需功能的另一种编程语言来写那部分代码</p>
+<p>例子：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main()
+{
+     <span style="color:#75715e">// 1、在负责实现类型（Console）的程序集的元数据中
+</span><span style="color:#75715e"></span>           <span style="color:#960050;background-color:#1e0010">查找被调用的方法（</span>WriteLine<span style="color:#960050;background-color:#1e0010">）</span>
+     <span style="color:#75715e">// 2、从元数据中获取该方法的IL
+</span><span style="color:#75715e"></span>     <span style="color:#75715e">// 3、分配内存块
+</span><span style="color:#75715e"></span>     <span style="color:#75715e">// 4、将IL编译成CPU指令，然后存储到3分配的内存中
+</span><span style="color:#75715e"></span>     <span style="color:#75715e">// 5、在Type表中修改与方法对应的记录项，指向3分配
+</span><span style="color:#75715e"></span>           <span style="color:#960050;background-color:#1e0010">的内存块</span>
+     <span style="color:#75715e">// 6、跳转到内存块中的本地代码
+</span><span style="color:#75715e"></span>     Console.WriteLine(<span style="color:#e6db74">&#34;Hello&#34;</span>);
+     <span style="color:#75715e">// 由于之前已经编译过WriteLine了
+</span><span style="color:#75715e"></span>     <span style="color:#75715e">// 不需要编译，直接运行本地代码
+</span><span style="color:#75715e"></span>     Console.WriteLine(<span style="color:#e6db74">&#34;World&#34;</span>);
+}
+</code></pre></div><p>例子说明：</p>
+<blockquote>
+<ol>
+<li>在Main方法执行前，CLR会检测出Main方法引用的所有类型，导致CLR分配一个内部数据结构，用于管理所引用类型的访问：Mian方法引用了一个Console类型，导致CLR分配了一个数据结构，这个数据结构中，Console类型定义的每个方法都有一个对应的纪录项（entry），每个记录项都容纳了一个地址，根据地址可以找到方法的实现。对这个结构进行初始化时，CLR将每个记录项都设置成指向包含在CLR内部的一个未文档化的函数（JITCompiler）中</li>
+<li>Main方法首次调用WriteLine时，JITCompiler函数会被调用，它负责把IL代码编译成CPU指令，由于是“即时”编译的，所以通常称这个组件为JITer或JIT编译器</li>
+<li>JITCompiler会在定义该类型的程序集的元数据中查找被调用方法的IL，验证并编译成CPU指令，存到一个动态分配的内存块中，然后JITCompiler返回CLR为类型创建的数据结构并找到与被调用的方法对应的那条记录，修改最初对JITCompiler的引用，指向编译好的含有CPU指令的内存块。现在，如果Main方法第二次调用WriteLine，会直接执行内存块中的代码，完全跳过JITCompiler函数</li>
+</ol>
+<ul>
+<li>不安全的代码：</li>
+</ul>
+<p>Miscrosoft C#编译器默认生成的是安全的（safe）代码，然而，也允许开发人员写不安全的（unsafe）代码，不安去的代码允许直接操早内存地址，并可操作这些地址处的字节。通常只有在于非托管的代码进行交互操作、或在提升对效率要求极高的一个算法的性能的时候，C#编译器要求包含不安全代码的所有方法都用unsafe关键字标记</p>
+</blockquote>
+<h3 id="5-本地代码生成器ngenexe">5. 本地代码生成器：NGen.exe<a href="#5-本地代码生成器ngenexe" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>可以将IL代码编译成本地代码，所以CLR的JIT编译器不需要在运行时编译IL代码，但这并没有什么卵用。只能提升应用程序启动速度，而且不是说完全就不用IL了， 如果CLR因为某些原因不能使用NGen生成的本地代码（比如CLR版本变了、系统打补丁了、CPU升级了），CLR会自动对IL使用JIT编译。IL是省不掉的</p>
+<h3 id="6-framework">6. Framework<a href="#6-framework" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>.NET Framework 定义了很多库，方便了开发者的开发</p>
+<h3 id="7-通用类型系统">7. 通用类型系统<a href="#7-通用类型系统" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>CLR是完全围绕类型展开的，Microsoft制定了一个规范，叫做通用类型系统（Common Type System CTS）</p>
+<ul>
+<li>字段（<strong>Field</strong>）</li>
+<li>方法（<strong>Method</strong>）</li>
+<li>属性（<strong>Property</strong>）：对于调用者，看起来像是一个字段，但对于类型的实现者，它看起来像方法（getter和setter），属性允许实现者在访问前对输入参数和对象状态进行校验</li>
+<li>事件（<strong>Event</strong>）：事件是对象以及相关对象之间实现的一个通知机制</li>
+</ul>
+<hr>
+<ul>
+<li>privte：成员只能由同一个类（Class）中的其他成员访问</li>
+<li>family：成员由可派生类访问，不管那些类是否在同一个程序集中。（许多语言都用Protected用来标识family）</li>
+<li>family and assembly：成员由可派生类访问，但必须在同一个程序集中定义（许多语言没有提供）</li>
+<li>assembly：成员由同一个程序集中的任何代码访问，（许多语言用 internal 来标识 assembly）</li>
+<li>public：成员可由任何程序集中的任何代码访问</li>
+</ul>
+<h3 id="8-公共语言规范">8. 公共语言规范<a href="#8-公共语言规范" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>COM 允许使用不用语言创建的对象互相通信，但各种语言都有差异，只能挑选其他所有语言都确定支持的那些功能。
+“公共语言规范”（Common Language Specification CLS）是一种语言必须支持的最小规范要求。
+用一种语言定义一个类型时，就不要在Public 和 Protected 中使用CLS之外的功能</p>
+<h3 id="9-与非托管代码的互操作性">9. 与非托管代码的互操作性<a href="#9-与非托管代码的互操作性" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>托管代码能调用哪个DLL中的非托管函数（P/Invoke）
+托管代码可使用现有的COM组件（TlbImp.exe）
+非托管代码可使用托管类型（TlbExp.exe、RegAsm.exe）</p>
+
+      </div></div>
+  
+
+  
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2020 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://stillsb.github.io/assets/main.js"></script>
+<script src="https://stillsb.github.io/assets/prism.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
