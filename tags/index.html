@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="utf-8">
+    <meta name="referrer" content="same-origin"/>
   
     <title>Tags :: Terminal — A simple, retro theme for Hugo</title>
   
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 <meta name="description" content="" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
@@ -14,38 +15,36 @@
 
 
 
-<link rel="stylesheet" href="https://stillsb.github.io/assets/style.css">
-
-  <link rel="stylesheet" href="https://stillsb.github.io/assets/pink.css">
+<link rel="stylesheet" href="https://stillsb.github.io/assets/style.min.css?d41d8cd98f00b204e9800998ecf8427e">
 
 
 
 
 
 
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://stillsb.github.io/img/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://stillsb.github.io/img/favicon/apple-icon-precomposed.png">
 
-  <link rel="shortcut icon" href="https://stillsb.github.io/img/favicon/pink.png">
+  <link rel="shortcut icon" href="https://stillsb.github.io/img/favicon/orange.png">
 
 
 
 <meta name="twitter:card" content="summary" />
 
-  <meta name="twitter:site" content="" />
-
-<meta name="twitter:creator" content="" />
 
 
-<meta property="og:locale" content="en" />
+
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Tags :: Terminal">
 <meta property="og:description" content="" />
 <meta property="og:url" content="https://stillsb.github.io/tags/" />
-<meta property="og:site_name" content="Tags" />
+<meta property="og:site_name" content="Terminal" />
+
 
   
-    <meta property="og:image" content="https://stillsb.github.io/img/favicon/pink.png">
-  
+      
+      
+   
+
 
 <meta property="og:image:width" content="2048">
 <meta property="og:image:height" content="1024">
@@ -70,10 +69,13 @@
 
 <div class="container center headings--one-size">
 
-  <header class="header">
+  <header class="header" style="background-image: url(/img/banner/banner-leaf-1571833_1920.jpg); 
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;">
   <div class="header__inner">
     <div class="header__logo">
-      <a href="/">
+      <a href="https://stillsb.github.io/">
   <div class="logo">
     Terminal
   </div>
@@ -116,6 +118,24 @@
 </nav>
 
   
+
+
+  <div class="feed-links">
+    
+
+    <a href="https://feedly.com/i/subscription/feed/https%3A%2F%2Fstillsb.github.io%2Fatom.xml" style="position: relative; margin-right: 10px; text-decoration: none;" title="点击通过 Feedly 订阅">
+      <span class="iconfont icon-feedly"></span>
+    </a>
+
+    <a href="https://www.inoreader.com/feed/https%3A%2F%2Fstillsb.github.io%2Fatom.xml" style="position: relative; margin-right: 10px; text-decoration: none;" title="点击通过 Inoreader 订阅">
+      <span class="iconfont icon-inoreader"></span>
+    </a>
+
+    <a href="javascript:void(0);" onclick="javascript:prompt('Atom Feed: ', 'https:\/\/stillsb.github.io\/atom.xml');" style="position: relative; margin-right: 0px; text-decoration: none;" title="点击查看RSS地址">
+      <span class="iconfont icon-rss1"></span>
+    </a>
+  </div>
+
 </header>
 
 
@@ -144,17 +164,133 @@
   
     <footer class="footer">
   <div class="footer__inner">
+    <div class="copyright copyright--user">
     
-      <div class="copyright">
-        <span>© 2020 Powered by <a href="http://gohugo.io">Hugo</a></span>
+        <span>:: Powered by <a href="http://gohugo.io">Hugo</a> 0.84.0</span>
     
         <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+
+    
       </div>
   </div>
 </footer>
 
-<script src="https://stillsb.github.io/assets/main.js"></script>
-<script src="https://stillsb.github.io/assets/prism.js"></script>
+<a id="back-to-top" style="display: inline-block;" href="javascript:void(0);" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+  <span class="iconfont icon-top"></span>
+</a>
+
+<script src="https://stillsb.github.io/assets/main.js?d41d8cd98f00b204e9800998ecf8427e"></script>
+
+
+<script>
+  const addCopyButtons = function(clipboard) {
+    document.querySelectorAll('pre > code').forEach(function (codeBlock) {
+        const button = document.createElement('button');
+        button.className = 'copy-code-button';
+        button.type = 'button';
+        button.innerText = 'Copy';
+
+        const btnWrapper = document.createElement('div');
+        btnWrapper.className = 'copy-code-button-wrap';
+        btnWrapper.appendChild(button);
+  
+        button.addEventListener('click', function () {
+            clipboard.writeText(codeBlock.innerText).then(function () {
+                
+
+                button.blur();
+  
+                button.innerText = '✔️';
+  
+                setTimeout(function () {
+                    button.innerText = 'Copy';
+                }, 2000);
+            }, function (error) {
+                button.innerText = 'Error';
+            });
+        });
+  
+        const pre = codeBlock.parentNode;
+        pre.insertAdjacentElement('beforebegin', btnWrapper);
+    });
+  };
+
+  const loadScript = (url, onloadFunction) => {
+    var newScript = document.createElement("script");
+    newScript.onerror =  (oError) => {
+      throw new URIError("The script " + oError.target.src + " didn't load correctly.");
+    };
+    if (onloadFunction) { newScript.onload = onloadFunction; }
+    document.head.insertAdjacentElement('beforeend', newScript);
+    newScript.src = url;
+  }
+
+  
+  const loadMermaidOnNeed = () => {
+    if (document.querySelectorAll('.mermaid').length > 0) {
+      loadScript('https://cdn.jsdelivr.net/npm/mermaid@8.10.1/dist/mermaid.min.js', () => {
+        document.head.insertAdjacentHTML("beforeend", `<style>.mermaid svg { background-color: #dadcd8 !important; }</style>`);
+        // default, dark, neutral, forest
+        mermaid.initialize({ startOnLoad: false, securityLevel: "strict", logLevel: 1, theme: "neutral" });
+        
+        
+        mermaid.init();
+        console.log("mermaid init done");
+      })
+    }
+  }
+
+  window.addEventListener('load', function(event) {
+
+    
+    const links = document.links;
+    for (let i = 0, linksLength = links.length; i < linksLength; i++) {
+      if (links[i].hostname != window.location.hostname && 
+      !links[i].href.startsWith('javascript:') && 
+      !links[i].href.startsWith('mailto:')) {
+          links[i].target = '_blank';
+      } 
+    }
+
+    
+    if (document.querySelectorAll('#TableOfContents li').length > 0) {
+      document.querySelector('#post-toc').style.display = 'block';
+    }
+    
+    
+    document.querySelectorAll('#post-toc a').forEach(anchor => {
+      anchor.addEventListener('click', evt => {
+        
+        document.querySelectorAll('#post-toc a').forEach(ele => {
+          ele.classList.remove('active');
+        });
+        evt.target.classList.add('active');
+      })
+    });
+
+    
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+    
+          
+          
+          
+          document.getElementById(this.getAttribute('href').substring(1)).scrollIntoView({
+              behavior: 'smooth'
+          });
+      });
+    });
+    
+    
+    if (navigator && navigator.clipboard) {
+      addCopyButtons(navigator.clipboard);
+    }
+
+    
+    loadMermaidOnNeed();
+  });
+</script>
 
 
 
