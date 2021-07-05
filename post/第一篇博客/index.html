@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="referrer" content="same-origin"/>
+  
+    <title>第一篇博客 :: Terminal — A simple, retro theme for Hugo</title>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="咋才开始写博客？ 2014年12月大三下半学期跑出来实习，掰指头算算，工作已经6年半了。
+我的天，时间过都好快！
+心里一直也知道写博客的好处，奈何没有找到一个优雅的方式去写。总觉得博客应该是长时间维护下去的一个东西，而一想到要长时间维护下去，就异常谨慎，导致一直停滞在想法阶段，没有落实。😂
+其实中途也做过几次尝试的，一开始准备在 CSDN上写来着，可能是门槛比较低，里面文章质量良莠不齐显得整个社区乱糟糟的，就没写。后来看到 博客园不错，里面的文章质量也高，心想有一天我搞个自己的个人博客多好，就又没写
+好吧。。。哪有那么多理由，其实就是懒
+博客与记笔 平时工作，也是零零星星在记些东西的，但毕竟属于个人笔记，总会偷懒，也写的不详细。
+一开始笔记都是在 印象笔记上记着的。那时还是在上大学，刚刚接触到云笔记这个概念，全局的关键词搜索与各设备同步，让我如获至宝，我在印象笔记中记了蛮多东西的，什么都喜欢往里塞，学习笔记、收藏文章、甚至各种密码，一搜就出来，很方便。后来它们对免费用户的限制越来越多，甚至对登陆设备数都限制，导致我很长一段时间都是在用他们的Web端（因为使用客户端会占用设备数）😨
+后来，免费用户的体验越来越糟糕，让我不得不开始考虑迁移。比较了市面上的各种笔记后，我选了 有道云笔记。当时迁移的过程也非常艰辛，因为年代久远，已经不记得具体遇到什么困难了，总之就是格式的不兼容，很多困难就像是印象笔记为了留住用户防止他们迁移而强行设置的。因为迁移工作量巨大，我放弃了很多当时的学习笔记，毕竟那些知识随便搜搜就能在网上找到，而且我也几乎不会再用到，它们现在依然安静的躺在我的印象笔记里 😄
+今年， notion免费了。当试用了notion后，我义无反顾的投入了notion的怀抱。哈哈，不过这是后话。有道云笔记是好东西，分文件夹管理和组织内容很方便，使用起来也非常符合国人的习惯，速度也快，如果有家人朋友需要使用云笔记，我会推荐有道云笔记给他们
+个人笔记和博客都能记录与积累，但针对的用户不同。个人笔记更加私人，用户是自己，而博客面向的假定用户是大众。
+是时候搞个属于我的个人博客了
+静态博客？动态博客？ 我需要一个怎样的博客呢？我想了想我的核心需求：
+ 支持markdown 支持代码高亮 支持图片与附件 简单、轻量、易部署  其实需求就这么简单，我只需要一个小巧的静态站点，让我舒适的写作。只是写几个字，请不要让我架nginx、维护数据库这一套。所以我上来过滤掉了 wordpress
+ hexo和 hugo这两个静态博客，都比较优秀，感觉上hugo的开发者好像响应更迅速一些，于是就选了hugo" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://stillsb.github.io/post/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" />
+
+
+
+
+<link rel="stylesheet" href="https://stillsb.github.io/assets/style.min.css?d41d8cd98f00b204e9800998ecf8427e">
+
+
+
+
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://stillsb.github.io/img/favicon/apple-icon-precomposed.png">
+
+  <link rel="shortcut icon" href="https://stillsb.github.io/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="第一篇博客 :: Terminal">
+<meta property="og:description" content="咋才开始写博客？ 2014年12月大三下半学期跑出来实习，掰指头算算，工作已经6年半了。
+我的天，时间过都好快！
+心里一直也知道写博客的好处，奈何没有找到一个优雅的方式去写。总觉得博客应该是长时间维护下去的一个东西，而一想到要长时间维护下去，就异常谨慎，导致一直停滞在想法阶段，没有落实。😂
+其实中途也做过几次尝试的，一开始准备在 CSDN上写来着，可能是门槛比较低，里面文章质量良莠不齐显得整个社区乱糟糟的，就没写。后来看到 博客园不错，里面的文章质量也高，心想有一天我搞个自己的个人博客多好，就又没写
+好吧。。。哪有那么多理由，其实就是懒
+博客与记笔 平时工作，也是零零星星在记些东西的，但毕竟属于个人笔记，总会偷懒，也写的不详细。
+一开始笔记都是在 印象笔记上记着的。那时还是在上大学，刚刚接触到云笔记这个概念，全局的关键词搜索与各设备同步，让我如获至宝，我在印象笔记中记了蛮多东西的，什么都喜欢往里塞，学习笔记、收藏文章、甚至各种密码，一搜就出来，很方便。后来它们对免费用户的限制越来越多，甚至对登陆设备数都限制，导致我很长一段时间都是在用他们的Web端（因为使用客户端会占用设备数）😨
+后来，免费用户的体验越来越糟糕，让我不得不开始考虑迁移。比较了市面上的各种笔记后，我选了 有道云笔记。当时迁移的过程也非常艰辛，因为年代久远，已经不记得具体遇到什么困难了，总之就是格式的不兼容，很多困难就像是印象笔记为了留住用户防止他们迁移而强行设置的。因为迁移工作量巨大，我放弃了很多当时的学习笔记，毕竟那些知识随便搜搜就能在网上找到，而且我也几乎不会再用到，它们现在依然安静的躺在我的印象笔记里 😄
+今年， notion免费了。当试用了notion后，我义无反顾的投入了notion的怀抱。哈哈，不过这是后话。有道云笔记是好东西，分文件夹管理和组织内容很方便，使用起来也非常符合国人的习惯，速度也快，如果有家人朋友需要使用云笔记，我会推荐有道云笔记给他们
+个人笔记和博客都能记录与积累，但针对的用户不同。个人笔记更加私人，用户是自己，而博客面向的假定用户是大众。
+是时候搞个属于我的个人博客了
+静态博客？动态博客？ 我需要一个怎样的博客呢？我想了想我的核心需求：
+ 支持markdown 支持代码高亮 支持图片与附件 简单、轻量、易部署  其实需求就这么简单，我只需要一个小巧的静态站点，让我舒适的写作。只是写几个字，请不要让我架nginx、维护数据库这一套。所以我上来过滤掉了 wordpress
+ hexo和 hugo这两个静态博客，都比较优秀，感觉上hugo的开发者好像响应更迅速一些，于是就选了hugo" />
+<meta property="og:url" content="https://stillsb.github.io/post/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" />
+<meta property="og:site_name" content="Terminal" />
+
+
+  
+      
+      
+   
+
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2021-07-04 09:33:55 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header" style="background-image: url(/img/banner/banner-leaf-1571833_1920.jpg); 
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="https://stillsb.github.io/">
+  <div class="logo">
+    Terminal
+  </div>
+</a>
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/showcase">Showcase</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+      
+        <li><a href="/showcase">Showcase</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+
+
+  <div class="feed-links">
+    
+
+    <a href="https://feedly.com/i/subscription/feed/https%3A%2F%2Fstillsb.github.io%2Fatom.xml" style="position: relative; margin-right: 10px; text-decoration: none;" title="点击通过 Feedly 订阅">
+      <span class="iconfont icon-feedly"></span>
+    </a>
+
+    <a href="https://www.inoreader.com/feed/https%3A%2F%2Fstillsb.github.io%2Fatom.xml" style="position: relative; margin-right: 10px; text-decoration: none;" title="点击通过 Inoreader 订阅">
+      <span class="iconfont icon-inoreader"></span>
+    </a>
+
+    <a href="javascript:void(0);" onclick="javascript:prompt('Atom Feed: ', 'https:\/\/stillsb.github.io\/atom.xml');" style="position: relative; margin-right: 0px; text-decoration: none;" title="点击查看RSS地址">
+      <span class="iconfont icon-rss1"></span>
+    </a>
+  </div>
+
+</header>
+
+
+  <div class="content">
+    
+
+<div class="post">
+  <h1 class="post-title">第一篇博客</h1>
+  <div class="post-meta">
+      
+    <span class="post-date">
+      2021-07-04
+    </span>
+    
+
+    
+    <span class="post-author">::
+      
+    </span>
+    
+
+    
+
+  </div>
+
+  
+
+  
+
+  
+  <div class="post-content"><div>
+        <h2 id="咋才开始写博客">咋才开始写博客？<a href="#咋才开始写博客" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>2014年12月大三下半学期跑出来实习，掰指头算算，工作已经6年半了。</p>
+<p>我的天，时间过都好快！</p>
+<p>心里一直也知道写博客的好处，奈何没有找到一个优雅的方式去写。总觉得博客应该是长时间维护下去的一个东西，而一想到要长时间维护下去，就异常谨慎，导致一直停滞在想法阶段，没有落实。😂</p>
+<p>其实中途也做过几次尝试的，一开始准备在
+
+
+
+
+
+
+
+
+<a href="https://www.csdn.net/" >CSDN</a>上写来着，可能是门槛比较低，里面文章质量良莠不齐显得整个社区乱糟糟的，就没写。后来看到
+
+
+
+
+
+
+
+
+<a href="https://www.cnblogs.com/" >博客园</a>不错，里面的文章质量也高，心想有一天我搞个自己的个人博客多好，就又没写</p>
+<p>好吧。。。哪有那么多理由，其实就是懒</p>
+<h2 id="博客与记笔">博客与记笔<a href="#博客与记笔" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>平时工作，也是零零星星在记些东西的，但毕竟属于个人笔记，总会偷懒，也写的不详细。</p>
+<p>一开始笔记都是在
+
+
+
+
+
+
+
+
+<a href="https://www.yinxiang.com/" >印象笔记</a>上记着的。那时还是在上大学，刚刚接触到云笔记这个概念，全局的关键词搜索与各设备同步，让我如获至宝，我在印象笔记中记了蛮多东西的，什么都喜欢往里塞，学习笔记、收藏文章、甚至各种密码，一搜就出来，很方便。后来它们对免费用户的限制越来越多，甚至对登陆设备数都限制，导致我很长一段时间都是在用他们的Web端（因为使用客户端会占用设备数）😨</p>
+<p>后来，免费用户的体验越来越糟糕，让我不得不开始考虑迁移。比较了市面上的各种笔记后，我选了
+
+
+
+
+
+
+
+
+<a href="https://note.youdao.com/" >有道云笔记</a>。当时迁移的过程也非常艰辛，因为年代久远，已经不记得具体遇到什么困难了，总之就是格式的不兼容，很多困难就像是印象笔记为了留住用户防止他们迁移而强行设置的。因为迁移工作量巨大，我放弃了很多当时的学习笔记，毕竟那些知识随便搜搜就能在网上找到，而且我也几乎不会再用到，它们现在依然安静的躺在我的印象笔记里 😄</p>
+<p>今年，
+
+
+
+
+
+
+
+
+<a href="https://www.notion.so/" >notion</a>免费了。当试用了notion后，我义无反顾的投入了notion的怀抱。哈哈，不过这是后话。有道云笔记是好东西，分文件夹管理和组织内容很方便，使用起来也非常符合国人的习惯，速度也快，如果有家人朋友需要使用云笔记，我会推荐有道云笔记给他们</p>
+<p>个人笔记和博客都能记录与积累，但针对的用户不同。个人笔记更加私人，用户是自己，而博客面向的假定用户是大众。</p>
+<p>是时候搞个属于我的个人博客了</p>
+<h2 id="静态博客动态博客">静态博客？动态博客？<a href="#静态博客动态博客" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>我需要一个怎样的博客呢？我想了想我的核心需求：</p>
+<ul>
+<li>支持markdown</li>
+<li>支持代码高亮</li>
+<li>支持图片与附件</li>
+<li>简单、轻量、易部署</li>
+</ul>
+<p>其实需求就这么简单，我只需要一个小巧的静态站点，让我舒适的写作。只是写几个字，请不要让我架nginx、维护数据库这一套。所以我上来过滤掉了
+
+
+
+
+
+
+
+    
+        
+    
+
+
+<a href="https://stillsb.github.io/post/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/wordpress.org" >wordpress</a></p>
+<p>
+
+
+
+
+
+
+
+
+<a href="https://hexo.io/" >hexo</a>和
+
+
+
+
+
+
+
+
+<a href="https://gohugo.io/" >hugo</a>这两个静态博客，都比较优秀，感觉上hugo的开发者好像响应更迅速一些，于是就选了hugo</p>
+
+      </div></div>
+
+  
+  
+  
+
+  
+
+
+
+</div>
+
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    <div class="copyright copyright--user">
+    
+        <span>:: Powered by <a href="http://gohugo.io">Hugo</a> 0.84.0</span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+
+    
+      </div>
+  </div>
+</footer>
+
+<a id="back-to-top" style="display: inline-block;" href="javascript:void(0);" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+  <span class="iconfont icon-top"></span>
+</a>
+
+<script src="https://stillsb.github.io/assets/main.js?d41d8cd98f00b204e9800998ecf8427e"></script>
+
+
+<script>
+  const addCopyButtons = function(clipboard) {
+    document.querySelectorAll('pre > code').forEach(function (codeBlock) {
+        const button = document.createElement('button');
+        button.className = 'copy-code-button';
+        button.type = 'button';
+        button.innerText = 'Copy';
+
+        const btnWrapper = document.createElement('div');
+        btnWrapper.className = 'copy-code-button-wrap';
+        btnWrapper.appendChild(button);
+  
+        button.addEventListener('click', function () {
+            clipboard.writeText(codeBlock.innerText).then(function () {
+                
+
+                button.blur();
+  
+                button.innerText = '✔️';
+  
+                setTimeout(function () {
+                    button.innerText = 'Copy';
+                }, 2000);
+            }, function (error) {
+                button.innerText = 'Error';
+            });
+        });
+  
+        const pre = codeBlock.parentNode;
+        pre.insertAdjacentElement('beforebegin', btnWrapper);
+    });
+  };
+
+  const loadScript = (url, onloadFunction) => {
+    var newScript = document.createElement("script");
+    newScript.onerror =  (oError) => {
+      throw new URIError("The script " + oError.target.src + " didn't load correctly.");
+    };
+    if (onloadFunction) { newScript.onload = onloadFunction; }
+    document.head.insertAdjacentElement('beforeend', newScript);
+    newScript.src = url;
+  }
+
+  
+  const loadMermaidOnNeed = () => {
+    if (document.querySelectorAll('.mermaid').length > 0) {
+      loadScript('https://cdn.jsdelivr.net/npm/mermaid@8.10.1/dist/mermaid.min.js', () => {
+        document.head.insertAdjacentHTML("beforeend", `<style>.mermaid svg { background-color: #dadcd8 !important; }</style>`);
+        // default, dark, neutral, forest
+        mermaid.initialize({ startOnLoad: false, securityLevel: "strict", logLevel: 1, theme: "neutral" });
+        
+        
+        mermaid.init();
+        console.log("mermaid init done");
+      })
+    }
+  }
+
+  window.addEventListener('load', function(event) {
+
+    
+    const links = document.links;
+    for (let i = 0, linksLength = links.length; i < linksLength; i++) {
+      if (links[i].hostname != window.location.hostname && 
+      !links[i].href.startsWith('javascript:') && 
+      !links[i].href.startsWith('mailto:')) {
+          links[i].target = '_blank';
+      } 
+    }
+
+    
+    if (document.querySelectorAll('#TableOfContents li').length > 0) {
+      document.querySelector('#post-toc').style.display = 'block';
+    }
+    
+    
+    document.querySelectorAll('#post-toc a').forEach(anchor => {
+      anchor.addEventListener('click', evt => {
+        
+        document.querySelectorAll('#post-toc a').forEach(ele => {
+          ele.classList.remove('active');
+        });
+        evt.target.classList.add('active');
+      })
+    });
+
+    
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+    
+          
+          
+          
+          document.getElementById(this.getAttribute('href').substring(1)).scrollIntoView({
+              behavior: 'smooth'
+          });
+      });
+    });
+    
+    
+    if (navigator && navigator.clipboard) {
+      addCopyButtons(navigator.clipboard);
+    }
+
+    
+    loadMermaidOnNeed();
+  });
+</script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
